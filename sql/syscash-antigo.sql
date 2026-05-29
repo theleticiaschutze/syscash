@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `syscash`.`conta_pagar` (
   `usuario_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_conta_pagar_categoria` (`categoria_id` ASC),
-  INDEX `fk_conta_receber_usuario` (`usuario_id` ASC),
+  INDEX `fk_conta_pagar_usuario` (`usuario_id` ASC),
   CONSTRAINT `fk_conta_pagar_categoria`
     FOREIGN KEY (`categoria_id`)
     REFERENCES `syscash`.`categoria` (`id`),
