@@ -28,6 +28,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
             if (password_verify($senha, $resultado["senha"]) === false) {
                 throw new Exception("Senha inválida!");
             } else {
+                //guardamos o id pois vamos usar isso para um filtro
                 $_SESSION["usuario_id"] = $resultado["id"];
                 $_SESSION["usuario"] = $resultado["nome"];
             }
