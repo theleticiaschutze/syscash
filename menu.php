@@ -94,6 +94,7 @@ require_once("valida_acesso.php");
             <div class="col-md-4 d-flex justify-content-center">
               <select name="ano" id="ano">
                 <?php
+                //ver se conseguimos colocar o ano atual e colocar ele 5 anos para trás e 5 para frente
                 for ($i = 0; $i < 10; $i++) {
                   if ($i == 0) {
                     echo "<option value='2021'>2021</option>";
@@ -135,7 +136,7 @@ require_once("valida_acesso.php");
         </div>
         <div class="modal-body">
           <p>Syscash - Sistema financeiro para fins educacionais do estudo da linguagem PHP</p>
-          <p>Desenvolvido por Alexandre - Desde 2021–<script>
+          <p>Desenvolvido por Alexandre - Desde 2021 – finalizado por Henry e Letícia em 2026<script>
               document.write(new Date().getFullYear())
             </script>
           </p>
