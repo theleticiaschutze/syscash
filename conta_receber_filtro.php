@@ -4,11 +4,11 @@ function validaDados($registro)
 {
     $erros = [];
 
-    if (!filter_var($registro->descricao_contareceber, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->descricao_contareceber, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["descricao_contareceber"] =  "Descrição: Campo vazio e ou informação inválida!";
     }
 
-    if (!filter_var($registro->favorecido_contareceber, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->favorecido_contareceber, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["favorecido_contareceber"] =  "Favorecido: Campo vazio e ou informação inválida!";
     }
 
@@ -19,11 +19,11 @@ function validaDados($registro)
         $erros["valor_contareceber"] =  "Valor R$: Campo vazio e ou informação inválida!";
     }
 
-    if (!filter_var($registro->datavencimento_contareceber, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->datavencimento_contareceber, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["datavencimento_contareceber"] =  "Data Vencimento: Campo vazio e ou informação inválida!";
     }
 
-    if (!filter_var($registro->categoria_id_contareceber, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->categoria_id_contareceber, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["categoria_id_contareceber"] =  "Categoria: Campo vazio e ou informação inválida!";
     }
 

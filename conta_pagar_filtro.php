@@ -4,11 +4,11 @@ function validaDados($registro)
 {
     $erros = [];
 
-    if (!filter_var($registro->descricao_contapagar, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->descricao_contapagar, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["descricao_contapagar"] =  "Descrição: Campo vazio e ou informação inválida!";
     }
 
-    if (!filter_var($registro->favorecido_contapagar, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->favorecido_contapagar, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["favorecido_contapagar"] =  "Favorecido: Campo vazio e ou informação inválida!";
     }
 
@@ -19,11 +19,11 @@ function validaDados($registro)
         $erros["valor_contapagar"] =  "Valor R$: Campo vazio e ou informação inválida!";
     }
 
-    if (!filter_var($registro->datavencimento_contapagar, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->datavencimento_contapagar, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["datavencimento_contapagar"] =  "Data Vencimento: Campo vazio e ou informação inválida!";
     }
 
-    if (!filter_var($registro->categoria_id_contapagar, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->categoria_id_contapagar, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["categoria_id_contapagar"] =  "Categoria: Campo vazio e ou informação inválida!";
     }
 

@@ -4,7 +4,7 @@ function validaDados($registro)
 {
     $erros = [];
 
-    if (!filter_var($registro->descricao_categoria, FILTER_SANITIZE_STRING)) {
+    if (!htmlspecialchars(strip_tags(filter_input($registro->descricao_categoria, FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8')) {
         $erros["descricao_categoria"] =  "Descrição: Campo vazio e ou informação inválida!";
     }
 
