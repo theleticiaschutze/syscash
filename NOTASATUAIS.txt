@@ -1,6 +1,6 @@
 NOTAS SYSCACHE<
 estava conseguindo salvar contas a pagar e receber sem ter nenhuma categoria cadastrada, mas elas não apareciam salvas, deveria ter uma mensagem de erro;
-na lista de categorias no site deveria mostrar o tipo já na tela, só está mostrando para imprimir
+na lista de categorias no site deveria mostrar o tipo já na tela (pagar ou receber), só está mostrando para imprimir
 
 criei 3 paginas dos favorecidos, faltam varias e o js e etc,
 estou usando como base o categoria e alterando as coisas;
