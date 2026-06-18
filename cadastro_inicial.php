@@ -9,7 +9,8 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         $erros = [];
         $dados = [];
 
-        $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_STRING);
+        
+        $nome = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "nome", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
         if (!$nome) {
             $erros["nome"] =  "Nome: Campo vazio e ou informação inválida!";
         }
@@ -21,13 +22,13 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         }
         $dados["email"] = $email;
 
-        $login = filter_input(INPUT_POST, "login", FILTER_SANITIZE_STRING);
+        $login = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "login", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
         if (!$login) {
             $erros["login"] =  "Login: Campo vazio e ou informação inválida!";
         }
         $dados["login"] = $login;
 
-        $senha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_STRING);
+        $senha = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "senha", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
         if (!$senha) {
             $erros["senha"] =  "Senha: Campo vazio e ou informação inválida!";
         }

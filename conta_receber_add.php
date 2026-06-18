@@ -11,7 +11,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         $id = filter_input(INPUT_POST, "id_contareceber", FILTER_VALIDATE_INT);
         $usuario_id = isset($_SESSION["usuario_id"]) ?  $_SESSION["usuario_id"] : 0;
         $pagina = filter_input(INPUT_POST, "pagina_contareceber", FILTER_VALIDATE_INT);
-        $texto_busca = filter_input(INPUT_POST, "texto_busca_contareceber", FILTER_SANITIZE_STRING);
+        $texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "texto_busca_contareceber", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
 
         if (!isset($pagina)) {
             $pagina = 1;

@@ -10,7 +10,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         $erros = [];
         $id = filter_input(INPUT_POST, "id_contareceber", FILTER_VALIDATE_INT);
         $pagina = filter_input(INPUT_POST, "pagina_contareceber", FILTER_VALIDATE_INT);
-        $texto_busca = filter_input(INPUT_POST, "texto_busca_contareceber", FILTER_SANITIZE_STRING);
+        $texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "texto_busca_contareceber", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
 
         $sql = "select * from conta_receber where id = ?";
 

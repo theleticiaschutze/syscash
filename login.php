@@ -8,8 +8,8 @@ require_once("conexao.php");
 if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
     try {
         $erros = [];
-        $login = filter_input(INPUT_POST, "login", FILTER_SANITIZE_STRING);
-        $senha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_STRING);
+        $login = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "login", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
+        $senha = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "senha", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
 
         $sql = "select * from usuario where login = ?";
 
