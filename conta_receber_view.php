@@ -4,13 +4,14 @@ require_once("valida_acesso.php");
 <?php
 require_once("conexao.php");
 require_once("categoria_crud.php");
+require_once("favorecido_crud.php");
 
 if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
     try {
         $erros = [];
         $id = filter_input(INPUT_POST, "id_contareceber", FILTER_VALIDATE_INT);
         $pagina = filter_input(INPUT_POST, "pagina_contareceber", FILTER_VALIDATE_INT);
-        $texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "texto_busca_contareceber", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
+       $texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "texto_busca_contareceber", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
 
         $sql = "select * from conta_receber where id = ?";
 
@@ -97,7 +98,14 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                             <dl>
                                 <dt>Favorecido</dt>
                                 <dd>
-                                    <?= isset($resultado["favorecido"]) ? $resultado["favorecido"] : ""; ?>
+                                <?php 
+                                     if (isset($resultado["favorecido_id"])) {
+                                    $fav = buscarFavorecido($resultado["favorecido_id"]);
+                                    echo isset($fav[0]["nome"]) ? $fav[0]["nome"] : "Não informado";
+                                     } else {
+                                     echo "Não informado";
+                                    }
+                                ?>
                                 </dd>
                             </dl>
                             <dl>

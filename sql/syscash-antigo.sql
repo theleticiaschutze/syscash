@@ -103,6 +103,22 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 -- ANALISAR
 
+-- -----------------------------------------------------
+-- Table `syscash`.`favorecido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `syscash`.`favorecido` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `usuario_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_favorecido_usuario` (`usuario_id` ASC),
+  CONSTRAINT `fk_favorecido_usuario`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `syscash`.`usuario` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

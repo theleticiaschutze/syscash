@@ -3,19 +3,24 @@ require_once("valida_acesso.php");
 ?>
 <?php
 require_once("categoria_crud.php");
+require_once("favorecido_crud.php");
 
-//a listagem de categoria é geral poderia ser filtrado por status
+$pagina = filter_input(INPUT_GET, "pagina_contareceber", FILTER_VALIDATE_INT);
+$texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_GET, "texto_busca_contareceber", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
+
+    if (!$pagina) {
+    $pagina = 1;
+    }
+
+    if (!$texto_busca) {
+    $texto_busca = "";
+    }
+
 if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
     try {
         $erros = [];
         $id = filter_input(INPUT_POST, "id_contareceber", FILTER_VALIDATE_INT);
         $usuario_id = isset($_SESSION["usuario_id"]) ?  $_SESSION["usuario_id"] : 0;
-        $pagina = filter_input(INPUT_POST, "pagina_contareceber", FILTER_VALIDATE_INT);
-        $texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "texto_busca_contareceber", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
-
-        if (!isset($pagina)) {
-            $pagina = 1;
-        }
     } catch (Exception $e) {
         $erros[] = $e->getMessage();
         $_SESSION["erros"] = $erros;
@@ -78,8 +83,15 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                                 <input type="text" class="form-control" id="descricao_contareceber" name="descricao_contareceber" maxlength="100" autofocus>
                             </div>
                             <div class="col-md-6">
-                                <label for="favorecido" class="form-label">Favorecido</label>
-                                <input type="text" class="form-control" id="favorecido_contareceber" name="favorecido_contareceber" maxlength="100">
+                                <label for="favorecido_id_contareceber" class="form-label">Favorecido</label>
+                                <select name="favorecido_id_contareceber" id="favorecido_id_contareceber" class="form-select">
+                                <?php        
+                                    $favorecidos = listarFavorecido(); 
+                                    foreach ($favorecidos as $favorecido) {
+                                    echo "<option value='" . $favorecido["id"] . "'>" . $favorecido["nome"] . "</option>";
+                                 }
+                                 ?>
+                            </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="valor" class="form-label">Valor R$</label>
