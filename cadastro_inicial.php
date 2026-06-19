@@ -32,7 +32,6 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         if (!$senha) {
             $erros["senha"] =  "Senha: Campo vazio e ou informação inválida!";
         }
-        $dados["senha"] = $senha;
         $_SESSION["dados"] = $dados;
 
         if (count($erros) > 0) {
@@ -52,7 +51,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
             throw new Exception("Login: Login já cadastrado!");
         }
 
-        $senha = password_hash($senha, PASSWORD_BCRYPT, ['cost' => 12]);
+        $senha_cripto = password_hash($senha, PASSWORD_BCRYPT, ['cost' => 12]);
         //cadastrando o usuário
         $sql = "insert into usuario(nome, email, login, senha) VALUES (?, ?, ?, ?)";
 
@@ -60,12 +59,15 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         $pre->execute(array(
             $nome,
             $email,
-            $login,
-            $senha
+            $login,            
+            $senha_cripto
         ));
 
-        header("HTTP 1/1 302 Redirect");
+        unset($_SESSION["dados"]);
+
         header("Location: login.php");
+        exit;
+        
     } catch (Exception $e) {
         $erros[] = $e->getMessage();
         $_SESSION["erros"] = $erros;
