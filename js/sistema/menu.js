@@ -13,103 +13,126 @@ $(document).ready(function () {
         $("#div_grafico").html("");
         $("#div_grafico").append("<canvas id='grafico'></canvas>");
 
-        $.ajax({
+        //ajax aninhado para colocar as duas requisições juntas
+        $.ajax({ //receber
             type: "POST",
             cache: false,
             url: "conta_receber_crud.php",
-            data: {
-                acao: "grafico",
-                ano: ano,
-                usuario: id_usuario
-            },
+            data: { acao: "grafico", ano: ano, usuario: id_usuario },
             dataType: "json",
-            success: function (data) {
-                var receber = [];
-                var receber_meses = [];
-                var receber_valores = [];
-                var receber_meses = [];
-                var receber_valores = [];
+            beforeSend: function () {
+                $("#carregando_menu").removeClass("d-none"); //carregando
+            },
+            success: function (dadosReceber) {
+                
+                $.ajax({ //adiciona o pagar
+                    type: "POST",
+                    cache: false,
+                    url: "conta_pagar_crud.php",
+                    data: { acao: "grafico", ano: ano, usuario: id_usuario },
+                    dataType: "json",
+                    success: function (dadosPagar) {
 
-                $.each(data, function (i, item) {
-                    if (i == 0) {
-                        receber = item;
-                    }
-                });
+                        var meses = []; // somente uma variável de meses para os dois
+                        var receber_valores = [];
+                        var pagar_valores = [];
 
-                $.each(receber, function (i, item) {
-                    receber_meses.push(i);
-                    receber_valores.push(item);
-                });
+                        //puxando os dados de receber
+                        $.each(dadosReceber[0], function (mes, valor) {
+                            meses.push(mes);
+                            receber_valores.push(valor);
+                        });
 
-                var dados = {
-                    labels: receber_meses,
-                    datasets: [{
-                        label: "Contas a Receber",
-                        backgroundColor: "#4080bf",
-                        borderColor: "#3973ac",
-                        hoverBackgroundColor: "#ccccff",
-                        hoverBorderColor: "#b3b3ff",
-                        borderWidth: 1,
-                        data: receber_valores
-                    }]
-                };
-                var grafico_canva = $("#grafico");
+                        //puxando os dados de pagar
+                        $.each(dadosPagar[0], function (mes, valor) {
+                            pagar_valores.push(valor);
+                        });
 
-                var graficoBarra = new Chart(
-                    grafico_canva, {
-                        type: "bar",
-                        data: dados,
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: "top",
-                                },
-                                title: {
-                                    display: true,
-                                    text: "Contas a Receber - " + ano
-                                }
+                        //dados no gráfico
+                        var dados = {
+                            labels: meses,
+                            datasets: [{
+                                label: "Contas a receber",
+                                backgroundColor: "#4080bf",
+                                borderColor: "#3973ac",
+                                hoverBackgroundColor: "#ccccff",
+                                hoverBorderColor: "#b3b3ff",
+                                borderWidth: 1,
+                                data: receber_valores
                             },
-                            scales: {
-                                y: {
-                                    display: true,
+                            {
+                                label: "Contas a pagar",
+                                backgroundColor: "#ab2934",
+                                borderColor: "#881717",
+                                hoverBackgroundColor: "#ffb3b3",
+                                hoverBorderColor: "#ff9999",
+                                borderWidth: 1,
+                                data: pagar_valores
+                            }]
+                        };
+
+                        var grafico_canva = $("#grafico");
+
+                        var graficoBarra = new Chart(
+                            grafico_canva, {
+                            type: "bar",
+                            data: dados,
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: "top",
+                                    },
                                     title: {
                                         display: true,
-                                        text: "Valores R$",
-                                        color: "#000000",
-                                        font: {
-                                            weight: "bold",
-                                        }
+                                        text: "Contas a pagar e receber - " + ano
                                     }
                                 },
-                                x: {
-                                    display: true,
-                                    title: {
+                                scales: {
+                                    y: {
                                         display: true,
-                                        text: "Meses do ano",
-                                        color: "#000000",
-                                        font: {
-                                            weight: "bold",
+                                        title: {
+                                            display: true,
+                                            text: "Valores R$",
+                                            color: "#000000",
+                                            font: {
+                                                weight: "bold",
+                                            }
+                                        }
+                                    },
+                                    x: {
+                                        display: true,
+                                        title: {
+                                            display: true,
+                                            text: "Meses do ano",
+                                            color: "#000000",
+                                            font: {
+                                                weight: "bold",
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
+                        });
+
+                    }, 
+                    error: function (e) {
+                        $("#div_mensagem_texto_menu").empty().append("Erro ao carregar despesas.");
+                        $("#div_mensagem_menu").show();
+                    },
+                    complete: function () {  //esconde o carregando depois de tudo pronto
+                        $("#carregando_menu").addClass("d-none");
                     }
-                );
+                });
+
             },
             error: function (e) {
                 $("#div_mensagem_texto_menu").empty().append(e.responseText);
                 $("#div_mensagem_menu").show();
-            },
-            beforeSend: function () {
-                $("#carregando_menu").removeClass("d-none");
-            },
-            complete: function () {
-                $("#carregando_menu").addClass("d-none");
+                $("#carregando_menu").addClass("d-none"); //esconde carregando se der erro
             }
-        });
+        }); 
     });
 
     $("#home_link").click(function () {
