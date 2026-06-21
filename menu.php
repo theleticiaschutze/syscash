@@ -98,11 +98,12 @@ require_once("valida_acesso.php");
               <select name="ano" id="ano">
                 <?php
                 //ver se conseguimos colocar o ano atual e colocar ele 5 anos para trás e 5 para frente
+                $ano_atual = date("Y"); //pega ano atual
                 for ($i = 0; $i < 10; $i++) {
-                  if ($i == 0) {
-                    echo "<option value='2021'>2021</option>";
+                  $conta = 2021 + $i;
+                  if ($conta == $ano_atual) {
+                    echo "<option value='$conta' selected>$conta</option>";
                   } else {
-                    $conta = 2021 + $i;
                     echo "<option value='$conta'>$conta</option>";
                   }
                 }

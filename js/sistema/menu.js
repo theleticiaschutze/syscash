@@ -1,9 +1,10 @@
 //para funcionar navegação via ajax os ids devem ser únicos em cada tela
-$(document).ready(function () {
+$(document).ready(function () {    
     //clicar no botão da div de erros e escondendo as mensagens de erros
     $("#div_mensagem_botao_menu").click(function () {
-        $("#div_mensagem_menu").hide();
+        $("#div_mensagem_menu").hide();        
     });
+    
 
     $('#botao_pesquisar_grafico').click(function (e) {
         var ano = $("#ano").val();
@@ -205,5 +206,6 @@ $(document).ready(function () {
         }
     }
     linkColor.forEach(l => l.addEventListener('click', colorLink));
+    $('#botao_pesquisar_grafico').trigger('click');
 
 });
