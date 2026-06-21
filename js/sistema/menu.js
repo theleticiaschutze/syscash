@@ -206,6 +206,6 @@ $(document).ready(function () {
         }
     }
     linkColor.forEach(l => l.addEventListener('click', colorLink));
-    $('#botao_pesquisar_grafico').trigger('click');
+    $('#botao_pesquisar_grafico').trigger('click'); //solução simples para abrir o ano padrão sozinho
 
 });

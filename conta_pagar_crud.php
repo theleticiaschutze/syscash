@@ -161,7 +161,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                 }
 
                 // só preenchendo o vetor com os dados restantes se não vier 12 meses na consulta
-                if (count($linhas) < 12) {
+                if (count($linhas) <= 12) { //coloquei um = pois com 12 meses preenchidos estava dando bug!
                     for ($i = 1; $i < 13; $i++) {
                         if (array_key_exists($meses[$i], $linhas)) {
                             $pagar_aux[$meses[$i]] = $linhas[$meses[$i]];
