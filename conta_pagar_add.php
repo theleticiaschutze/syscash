@@ -5,22 +5,17 @@ require_once("valida_acesso.php");
 require_once("categoria_crud.php");
 require_once("favorecido_crud.php");
 
-$pagina = filter_input(INPUT_GET, "pagina_contapagar", FILTER_VALIDATE_INT);
-$texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_GET, "texto_busca_contapagar", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
-
-if (!$pagina) {
-    $pagina = 1;
-}
-
-if (!$texto_busca) {
-    $texto_busca = "";
-}
-
 if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
     try {
         $erros = [];
         $id = filter_input(INPUT_POST, "id_contapagar", FILTER_VALIDATE_INT);
         $usuario_id = isset($_SESSION["usuario_id"]) ? $_SESSION["usuario_id"] : 0;
+        $pagina = filter_input(INPUT_POST, "pagina_contapagar", FILTER_VALIDATE_INT);
+        $texto_busca = htmlspecialchars(strip_tags(filter_input(INPUT_POST, "texto_busca_contapagar", FILTER_UNSAFE_RAW)), ENT_QUOTES, 'UTF-8');
+
+        if (!isset($pagina)) {
+            $pagina = 1;
+        }
     } catch (Exception $e) {
         $erros[] = $e->getMessage();
         $_SESSION["erros"] = $erros;

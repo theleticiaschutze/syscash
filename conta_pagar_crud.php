@@ -58,7 +58,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                 $pre = $conexao->prepare($sql);
                 $pre->execute(array(
                     $registro->descricao_contapagar,
-                    $registro->favorecido_contapagar,
+                    $registro->favorecido_id_contapagar,
                     $registro->valor_contapagar,
                     $registro->datavencimento_contapagar,
                     $registro->categoria_id_contapagar,
