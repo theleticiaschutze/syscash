@@ -7,4 +7,4 @@ const USUARIO = "root";
 
 const SENHA = "";
 
-const REGISTROS_POR_PAGINA = 5;
+const REGISTROS_POR_PAGINA = 10;
