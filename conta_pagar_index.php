@@ -96,7 +96,8 @@ try {
             <hr>
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-start">
-                    <a href="#" class="btn btn-primary btn-sm" title="Adicionar" id="botao_adicionar_contapagar"><i class="fas fa-plus-square"></i>&nbsp;Adicionar</a>
+                    <a href="#" class="btn btn-primary btn-sm" title="Adicionar" id="botao_adicionar_contapagar"><i class="fas fa-plus-square"></i>&nbsp;Adicionar</a>&nbsp;
+                    <a href="conta_pagar_pdf.php" class="btn btn-primary btn-sm" title="Imprimir" id="botao_imprimir_categoria" target="_blank"><i class="fas fa-print"></i>&nbsp;Imprimir</a>
                 </div>
                 <div class="col-md-4 d-flex justify-content-center">
                 </div>
