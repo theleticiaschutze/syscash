@@ -376,7 +376,7 @@ $(document).ready(function () {
 			success: function () {
 				$("#div_mensagem_texto_contapagar").empty().append("Contas a pagar excluída!");
 				$("#div_mensagem_contapagar").show();
-				$("tr#" + registro.id + "_contareceber").remove();
+				$("tr#" + registro.id + "_contapagar").remove();
 			},
 			error: function (e) {
 				$("#div_mensagem_texto_contapagar").empty().append(e.responseText);
